@@ -3,9 +3,12 @@ package com.idat.EC3RUBENDIOSESreservacita.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Table(name = "UsuarioCliente")
@@ -20,6 +23,11 @@ public class UsuarioCliente implements Serializable {
 	private String usuario;
 	private String password;
 	private String rol;
+	
+	@OneToOne
+	@JoinColumn(name = "id_cliente", nullable = false, unique = true,
+	foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(id_cliente) references cliente (id_cliente)"))
+	private Cliente cliente;
 	
 	public UsuarioCliente() {
 		super();
