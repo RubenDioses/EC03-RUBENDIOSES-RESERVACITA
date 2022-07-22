@@ -2,11 +2,21 @@ package com.idat.EC3RUBENDIOSESreservacita.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "Hospital")
+@Entity
 public class Hospital implements Serializable {	
 
 	private static final long serialVersionUID = -2458780697381215562L;
 	
-	private int idHospital;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idHospital;
 	private String nombre;
 	private String descripcion;
 	private String distrito;

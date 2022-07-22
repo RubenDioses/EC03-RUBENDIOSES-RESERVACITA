@@ -11,50 +11,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.idat.EC3RUBENDIOSESreservacita.dto.ClienteDTORequest;
-import com.idat.EC3RUBENDIOSESreservacita.dto.ClienteDTOResponse;
-import com.idat.EC3RUBENDIOSESreservacita.service.ClienteService;
+import com.idat.EC3RUBENDIOSESreservacita.dto.HospitalDTORequest;
+import com.idat.EC3RUBENDIOSESreservacita.dto.HospitalDTOResponse;
+import com.idat.EC3RUBENDIOSESreservacita.model.Hospital;
+import com.idat.EC3RUBENDIOSESreservacita.service.HospitalService;
 
 @RestController
-@RequestMapping("/cliente/c1")
-public class ClienteController {
+@RequestMapping("/hospital/h1")
+public class HospitalController {
 	
 	@Autowired
-	private ClienteService servicio;
+	private HospitalService servicio1;
 	
 	@RequestMapping(path = "/listar", method = RequestMethod.GET)
-	public ResponseEntity<List<ClienteDTOResponse>> listarCliente(){
+	public ResponseEntity<List<HospitalDTOResponse>> listarHospital(){
 		
-		return new ResponseEntity<List<ClienteDTOResponse>>(servicio.listarCliente(), HttpStatus.CREATED);
+		return new ResponseEntity<List<HospitalDTOResponse>>(servicio1.listarHospital(), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(path = "guardar", method = RequestMethod.POST)
-	public ResponseEntity<Void> guardar(@RequestBody ClienteDTORequest cliente){
+	public ResponseEntity<Void> guardar(@RequestBody Hospital hospital){
 		
-		servicio.guardarCliente(null);
+		servicio1.guardarHospital(null);
 		
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 		
 	}
 	
 	@RequestMapping(path = "/listar/{id}")
-	public ResponseEntity<ClienteDTOResponse> listarPorId(@PathVariable Integer id) {
+	public ResponseEntity<HospitalDTOResponse> listarPorId(@PathVariable Integer id) {
 		
-		ClienteDTOResponse c = servicio.obtenerClienteId(id);
-		if(c != null)
-			return new ResponseEntity<ClienteDTOResponse>(c, HttpStatus.OK);
+		HospitalDTOResponse h = servicio1.obtenerHospitalId(id);
+		if(h != null)
+			return new ResponseEntity<HospitalDTOResponse>(h, HttpStatus.OK);
 		
-		return new ResponseEntity<ClienteDTOResponse>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<HospitalDTOResponse>(HttpStatus.NOT_FOUND);
 		
 	}
 	
 	@RequestMapping (path = "/editar", method = RequestMethod.PATCH)
-	public ResponseEntity<Void> editar(@RequestBody ClienteDTORequest cliente){
+	public ResponseEntity<Void> editar(@RequestBody HospitalDTORequest hospital){
 		
-		ClienteDTOResponse c = servicio.obtenerClienteId(cliente.getIdClienteDTO());
+		HospitalDTOResponse h = servicio1.obtenerHospitalId(hospital.getIdHospitalDTO());
 		
-		if(c != null) {
-			servicio.editarCliente(cliente);
+		if(h != null) {
+			servicio1.editarHospital(hospital);
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -64,9 +65,9 @@ public class ClienteController {
 	@RequestMapping(path = "/eliminar/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> eliminar(@PathVariable Integer id){
 		
-		ClienteDTOResponse c = servicio.obtenerClienteId(id);
-		if(c != null) {
-			servicio.eliminarCliente(id);
+		HospitalDTOResponse h = servicio1.obtenerHospitalId(id);
+		if(h != null) {
+			servicio1.eliminarHospital(id);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		
@@ -74,6 +75,5 @@ public class ClienteController {
 		
 		
 	}
-	
 
 }
